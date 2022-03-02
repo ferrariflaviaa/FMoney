@@ -1,7 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createServer} from 'miragejs'
 import App from './App';
 
+///FUNÇÃO QUE FAZ AS CHAMADAS API:
+createServer({
+  routes() {
+    //AQUI FAZENDO DIRECIONAMOS TODAS CHAMADAS QUE TEM API:
+    this.namespace = 'api';
+    this.get('/transactions', () => {
+      return [
+        {
+          id: 1,
+          title: 'Transactions 1',
+          amount: 400,
+          type: 'deposit',
+          category: 'Food',
+        }
+      ]
+    })
+  }
+})
 ReactDOM.render(
   <React.StrictMode>
     <App/>
