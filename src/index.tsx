@@ -1,23 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createServer} from 'miragejs'
+import { createServer, Model} from 'miragejs'
 import App from './App';
 
 ///FUNÇÃO QUE FAZ AS CHAMADAS API:
 createServer({
+
+  models:{
+    transaction: Model,
+  },
   routes() {
     //AQUI FAZENDO DIRECIONAMOS TODAS CHAMADAS QUE TEM API:
     this.namespace = 'api';
     this.get('/transactions', () => {
-      return [
-        {
-          id: 1,
-          title: 'Transactions 1',
-          amount: 400,
-          type: 'deposit',
-          category: 'Food',
-        }
-      ]
+    return this.schema.all('transaction');
+      
+    })
+
+    this.post('/transactions', (schema, request) => {
+      const data = JSON.parse(request.requestBody)
+
+      return schema.create('transition', data )
     })
   }
 })
@@ -28,7 +31,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 
