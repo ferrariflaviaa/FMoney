@@ -33,17 +33,17 @@ createServer({
     })
   },
   routes() {
-    //AQUI FAZENDO DIRECIONAMOS TODAS CHAMADAS QUE TEM API:
+    //ROTA GET PARA RECEBER TRANSAÇÕES:
     this.namespace = 'api';
     this.get('/transactions', () => {
     return this.schema.all('transaction');
-      
     })
 
     this.post('/transactions', (schema, request) => {
       const data = JSON.parse(request.requestBody)
-
-      return schema.create('transition', data )
+      // Para validar o que vem na requisição
+      // return data;
+      return schema.create('transaction', data )
     })
   }
 })
