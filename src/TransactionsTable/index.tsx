@@ -5,7 +5,7 @@ import { Container } from "./styles";
 
 //FUBÇÃO PARA DEIXA PREPARADA PARA RECEBER O BACKEND:
 export function TransactionsTable() {
-    const transactions = useContext(TransactionsContext);
+    const { transactions } = useContext(TransactionsContext);
     return (
         <Container>
             <table>
